@@ -40,6 +40,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Post::create([
+            "title" => $request->title,
+            "category_id" => $request->category,
             "body" => $request->body,
             "user_id" => Auth::id(),
         ]);
@@ -53,14 +55,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Request $request)
     {
-        $user_id = $post->user_id;
-        $user = DB::table('users')->where('id',$user_id)->first();
-
-        return view('posts.detail',[
-            'post' => $post,
-            'user' => $user,
+        $post = Post::find($request->id);
+        dd($post);
+        return view('posts.comment',[
+            'post' => $post
         ]);
     }
 

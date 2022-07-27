@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->integer('category_id');
             $table->string('title');
             $table->string('body');
-            $table->unsignedInteger('comment_count');
+            $table->unsignedInteger('comment_count')->nullable();
             $table->timestamp('created_at')
             ->Nullable()->useCurrent();
             $table->timestamp('updated_at')

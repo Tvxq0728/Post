@@ -23,9 +23,10 @@ Route::get('/dashboard', function () {
 Route::get('/posts',[PostController::class,"index"]);
 Route::get('/posts/create',[PostController::class,"create"]);
 Route::post('/posts/delete',[PostController::class,"delete"]);
-Route::get('/posts/show',[PostController::class,"show"]);
+Route::post('/posts/show',[PostController::class,"show"]);
 Route::post('/posts',[PostController::class,"store"]);
 Route::get('/posts/{id}',[PostController::class,"edit"]);
 Route::post('/posts/update',[PostController::class,"update"]);
+
 
 require __DIR__.'/auth.php';
