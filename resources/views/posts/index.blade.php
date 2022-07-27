@@ -5,33 +5,15 @@
         </h2>
     </x-slot>
 
-    <div class="content flex justify-center">
-      <table>
-        <thead>
-          <th class="px-4 py-2">ID</th>
-          <th class="px-4 py-2">内容</th>
-        </thead>
-        @foreach ($posts as $post)
-        <tr>
-          <td>{{ $post->id }}</td>
-          <td>{{ $post->body }}</td>
-          <td>
-            <button>
-              <a href="{{url('posts/'.$post->id)}}">詳細</a>
-            </button>
-          </td>
-          <td>
-            @auth
-            <form action="/posts/delete/{{$post->id}}" methods="POST">
-              @csrf
-              <button class="bg-sky-600 hover:bg-sky-700">
-                削除
-              </button>
-            </form>
-            @endauth
-          </td>
-        </tr>
+    <div class="text-center grid-cols-1 m-20">
+      @foreach ($posts as $post)
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">タイトル : {{ $post->title }}</h2>
+        <p class="font-semibold  text-gray-800 leading-tight">カテゴリー : {{ $post->category->name }}</p>
+        <p class="leading-relaxed">{{ $post->body }}</p>
+        <p>コメント数 : {{ $post->comment_count}}</p>
+        <p class="my-6"><a href="/posts/comments" class="bg-blue-900 hover:bg-blue-800 text-white rounded px-4 py-2">コメント欄へ</a></p>
         @endforeach
-      </table>
     </div>
 </x-app-layout>
+<style>
+</style>

@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-
+        // dd($posts->category->name);
         return view('posts.index',['posts' => $posts]);
     }
 
@@ -72,9 +72,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = \App\Post::findOrFail($id);
-
-        return view('posts.edit',['post' => $post]);
+        $post = Post::findOrFail($id);
+        // dd($post);
+        return view('posts.edit',[
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -86,10 +88,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $id = $request->post_id;
-        $post = Post::findOrFail($id);
-        $post->body = $request->body;
-        $post->save();
+        Post::where('id',$request->post_id)
+        ->update([
+            'body' => $request->body
+        ]);
 
         return redirect('/posts');
     }
@@ -102,6 +104,7 @@ class PostController extends Controller
      */
     public function delete(Request $request)
     {
+        // dd($request->id);
         Post::find($request->id)->delete();
 
         return redirect('/posts');

@@ -16,7 +16,10 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('category_id');
+            $table->string('title');
             $table->string('body');
+            $table->unsignedInteger('comment_count');
             $table->timestamp('created_at')
             ->Nullable()->useCurrent();
             $table->timestamp('updated_at')
