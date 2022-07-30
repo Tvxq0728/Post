@@ -23,7 +23,8 @@ Route::get('/dashboard', function () {
 Route::get('/posts',[PostController::class,"index"]);
 Route::get('/posts/create',[PostController::class,"create"]);
 Route::post('/posts/delete',[PostController::class,"delete"]);
-Route::post('/posts/show',[PostController::class,"show"]);
+Route::get('/posts/show',[PostController::class,"show"]);
+Route::post('/posts/show',[PostController::class,"search"]);
 Route::post('/posts',[PostController::class,"store"]);
 Route::get('/posts/{id}',[PostController::class,"edit"]);
 Route::post('/posts/update',[PostController::class,"update"]);

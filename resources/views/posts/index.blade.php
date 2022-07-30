@@ -16,7 +16,9 @@
         @elseif ($post->comment_count == Null)
         <p>コメント数 : 0</p>
         @endif
+
         <form action="/posts/show" method="POST">
+          @csrf
           <input type="submit" class="bg-blue-900 hover:bg-blue-800 text-white rounded px-4 py-2" value="コメント欄へ">
           <input type="hidden" name="id" value="{{$post->id}}">
         </form>

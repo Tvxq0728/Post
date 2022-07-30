@@ -16,8 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        // dd($posts->category->name);
+        $posts = Post::orderBy('created_at','desc')
+        ->get();
+        // dd($posts);
         return view('posts.index',['posts' => $posts]);
     }
 
@@ -57,10 +58,19 @@ class PostController extends Controller
      */
     public function show(Request $request)
     {
-        $post = Post::find($request->id);
-        dd($post);
-        return view('posts.comment',[
-            'post' => $post
+        // $post = $request->post;
+        // dd($post);
+        return view('posts.comment')
+        ->with([
+            'post' => $request->post,
+        ]);
+    }
+
+    public function search(Request $request) {
+        $post = Post::where('id',$request->id)
+        ->get();
+        return redirect('/posts/show')->with([
+            'post'=> $posts,
         ]);
     }
 

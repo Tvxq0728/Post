@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="text-center grid-cols-1 m-20">
-      <h2>タイトル : {{-- $post->title --}}</h2>
+      <h2>タイトル : {{ $post->title }}</h2>
       <p>カテゴリー : {{ $post->category->name}}</p>
     </div>
 </x-app-layout>
