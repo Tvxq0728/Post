@@ -13,6 +13,12 @@ class Post extends Model
     public function Comments() {
         return $this->hasMany('App\Models\Comment');
     }
+    public function Image() {
+        return $this->hasMany('App\Models\Image');
+    }
+    public function User() {
+        return $this->belongsTo('App\Models\User');
+    }
     public function Category() {
         return $this->belongsTo('App\Models\Category');
     }

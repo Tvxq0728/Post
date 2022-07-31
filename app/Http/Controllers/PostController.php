@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,9 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('created_at','desc')
         ->get();
-        // dd($posts);
+
+        $image = $posts->Image->get()->first();
+        dd($image);
         return view('posts.index',['posts' => $posts]);
     }
 
@@ -44,9 +47,29 @@ class PostController extends Controller
             "title" => $request->title,
             "category_id" => $request->category,
             "body" => $request->body,
-            "user_id" => Auth::id(),
+            "user_id" => Auth::user()->id,
         ]);
+        // ディレクトリ名
+        $dir = 'image';
+        // アップロードしたファイル名を取得
+        $file_name = $request->file('image')->getClientOriginalName();
+        // 取得したファイル名で保存
+        $request->file('image')->storeAs('public/' . $dir,$file_name);
 
+        // ファイル情報をDBに保存
+        Image::create([
+            'post_id' => Post::where('user_id',Auth::user()->id)
+            ->orderBy('created_at','desc')
+            ->first()
+            ->id,
+            'name' => $file_name,
+            'path' => 'storage/' . $dir . '/' . $file_name,
+        ]);
+        // $post = Post::where('user_id',Auth::user()->id)
+        //     ->orderBy('created_at','desc')
+        //     ->first()
+        //     ->id;
+        //     dd($post);
         return redirect()->to('/posts');
     }
 
@@ -56,22 +79,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
-    {
-        // $post = $request->post;
-        // dd($post);
-        return view('posts.comment')
-        ->with([
-            'post' => $request->post,
-        ]);
-    }
-
-    public function search(Request $request) {
-        $post = Post::where('id',$request->id)
+    public function show() {
+        $posts = Post::where('user_id',Auth::user()->id)
+        ->orderBy('created_at','desc')
         ->get();
-        return redirect('/posts/show')->with([
-            'post'=> $posts,
-        ]);
+        // dd($posts);
+        return view('posts.show',['posts' => $posts]);
     }
 
     /**
@@ -80,9 +93,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($request->id);
         // dd($post);
         return view('posts.edit',[
             'post' => $post,
@@ -100,10 +113,11 @@ class PostController extends Controller
     {
         Post::where('id',$request->post_id)
         ->update([
-            'body' => $request->body
+            'title' => $request->title,
+            'body'  => $request->body
         ]);
 
-        return redirect('/posts');
+        return redirect('/posts/show');
     }
 
     /**
@@ -115,8 +129,8 @@ class PostController extends Controller
     public function delete(Request $request)
     {
         // dd($request->id);
-        Post::find($request->id)->delete();
-
-        return redirect('/posts');
+        $post=Post::find($request->id)->delete();
+        // dd($post);
+        return redirect('/posts/show');
     }
 }

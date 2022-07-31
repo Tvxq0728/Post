@@ -15,10 +15,18 @@
                     <!-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link> -->
+                    @guest
+                    <a href="/register">新規登録</a>
+                    <a href="/login">ログイン</a>
+                    @endguest
+                    <a href="/posts">ホーム</a>
                     @auth
                     <a href="/posts/create">
                         新規投稿
                     </a>
+                    @endauth
+                    @auth
+                    <a href="/posts/show">投稿一覧</a>
                     @endauth
                 </div>
             </div>
@@ -41,9 +49,15 @@
 
                     <x-slot name="content">
                         <!-- Authentication -->
+                        <!-- <a href="/login">
+                            <x-dropdown-link :href="route('login')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('ログイン') }}
+                            </x-dropdown-link>
+                        </a> -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">

@@ -5,7 +5,7 @@
     </h2>
   </x-slot>
   <div class="h-screen w-screen flex justify-center items-center">
-    <form action="/posts" method="POST">
+    <form action="/posts" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="title">
         <label for="title">タイトル</label>
@@ -16,6 +16,10 @@
         <select name="category" id="category">
           <option value="1">スポーツ</option>
         </select>
+      </div>
+      <div>
+        <label for="image">画像</label>
+        <input type="file" name="image" id="image">
       </div>
       <label for="body">新規投稿</label>
       <div>

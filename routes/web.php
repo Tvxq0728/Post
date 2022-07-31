@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +21,20 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
 Route::get('/posts',[PostController::class,"index"]);
 Route::get('/posts/create',[PostController::class,"create"]);
 Route::post('/posts/delete',[PostController::class,"delete"]);
 Route::get('/posts/show',[PostController::class,"show"]);
-Route::post('/posts/show',[PostController::class,"search"]);
 Route::post('/posts',[PostController::class,"store"]);
-Route::get('/posts/{id}',[PostController::class,"edit"]);
+Route::post('/posts/edit',[PostController::class,"edit"]);
 Route::post('/posts/update',[PostController::class,"update"]);
+
+Route::post('/comment/index',[CommentController::class,'index']);
+Route::post('/comment/create',[CommentController::class,'create']);
+Route::post('/comment/store',[CommentController::class,'store']);
+
+
 
 
 require __DIR__.'/auth.php';
