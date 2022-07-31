@@ -15,7 +15,6 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->integer('post_id');
             $table->string('name');
             $table->string('path');
             $table->timestamp('created_at')->nullable()->useCurrent();

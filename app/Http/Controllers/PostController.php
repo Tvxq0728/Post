@@ -19,9 +19,6 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('created_at','desc')
         ->get();
-
-        $image = $posts->Image->get()->first();
-        dd($image);
         return view('posts.index',['posts' => $posts]);
     }
 
@@ -43,33 +40,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create([
-            "title" => $request->title,
-            "category_id" => $request->category,
-            "body" => $request->body,
-            "user_id" => Auth::user()->id,
-        ]);
+        if ($request->image !== Null) {
         // ディレクトリ名
         $dir = 'image';
         // アップロードしたファイル名を取得
         $file_name = $request->file('image')->getClientOriginalName();
         // 取得したファイル名で保存
         $request->file('image')->storeAs('public/' . $dir,$file_name);
-
         // ファイル情報をDBに保存
         Image::create([
-            'post_id' => Post::where('user_id',Auth::user()->id)
-            ->orderBy('created_at','desc')
-            ->first()
-            ->id,
             'name' => $file_name,
             'path' => 'storage/' . $dir . '/' . $file_name,
         ]);
-        // $post = Post::where('user_id',Auth::user()->id)
-        //     ->orderBy('created_at','desc')
-        //     ->first()
-        //     ->id;
-        //     dd($post);
+        Post::create([
+            "title" => $request->title,
+            "category_id" => $request->category,
+            "body" => $request->body,
+            "user_id" => Auth::user()->id,
+            "image_id" => Image::orderBy('id','desc')
+            ->first()
+            ->id,
+        ]);
+        return redirect()->to('/posts');
+        }
+        Post::create([
+            "title" => $request->title,
+            "category_id" => $request->category,
+            "body" => $request->body,
+            "user_id" => Auth::user()->id,
+        ]);
         return redirect()->to('/posts');
     }
 
