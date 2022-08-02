@@ -9,10 +9,9 @@
       @foreach ($posts as $post)
       <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-3">投稿者: {{$post->user->name}}</h2>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">タイトル : {{ $post->title }}</h2>
-
         <!-- 画像がある場合表示させる -->
           @if ($post->image_id == 0)
-          <p>画像はありません</p>
+          <p class="text-rose-500">画像はありません</p>
           @elseif ($post->image->path !== 0)
           <img src="{{ asset($post->image->path) }}" class="display-block mx-auto my-0">
           @endif

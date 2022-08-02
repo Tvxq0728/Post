@@ -14,7 +14,7 @@ class CommentController extends Controller
         $id = $request->id;
         $post = Post::where('id',$id)->first();
         // dd($post);
-        return view('posts.comment')->with([
+        return view('comment.comment')->with([
             'post'=> $post,
         ]);
     }
@@ -38,7 +38,7 @@ class CommentController extends Controller
       ]);
       $post = Post::where('id',$request->post_id)->first();
       // dd($post);
-      return view('posts.comment')->with([
+      return view('comment.comment')->with([
         'post' => $post,
       ]);
     }

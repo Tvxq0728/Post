@@ -14,7 +14,13 @@
       <div class="category">
         <label for="category">カテゴリー</label>
         <select name="category" id="category">
-          <option value="1">スポーツ</option>
+          <option value="1">ファンタジー</option>
+          <option value="2">アクション</option>
+          <option value="3">コメディ</option>
+          <option value="4">恋愛</option>
+          <option value="5">日常</option>
+          <option value="6">スポーツ</option>
+          <option value="7">キッズ</option>
         </select>
       </div>
       <div>

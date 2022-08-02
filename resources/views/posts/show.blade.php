@@ -9,6 +9,11 @@
       @foreach ($posts as $post)
       {{$post->id}}
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">タイトル : {{ $post->title }}</h2>
+        @if ($post->image_id == 0)
+        <p class="text-rose-500">画像はありません</p>
+        @elseif ($post->image->path !== 0)
+        <img src="{{ asset($post->image->path) }}" class="display-block mx-auto my-0">
+        @endif
         <p class="font-semibold  text-gray-800 leading-tight">カテゴリー : {{ $post->category->name }}</p>
         <p class="leading-relaxed border-2 border-black-600">{{ $post->body }}</p>
         @if ($post->comment_count)
