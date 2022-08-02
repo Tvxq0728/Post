@@ -49,11 +49,11 @@ class PostController extends Controller
         $request->file('image')->storeAs('public/' . $dir,$file_name);
         // ファイル情報をDBに保存
 
-        $image = base64_encode(file_gets($request->image->getRealPath()));
+        // $image = base64_encode(file_get_contents($request->image->getRealPath()));
 
         Image::create([
             'name' => $file_name,
-            'path' => $image,
+            'path' => 'storage/' . $dir . '/' . $file_name,
         ]);
         Post::create([
             "title" => $request->title,
