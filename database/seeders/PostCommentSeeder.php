@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
+use App\public\storage\image;
 
 class PostCommentSeeder extends Seeder
 {
@@ -50,6 +52,26 @@ class PostCommentSeeder extends Seeder
         //     'キッズ',
         // ];
         // $category->save();
+        User::create([
+            'id'   => 99,
+            'name' => 'test',
+        ]);
+        Post::create([
+            'id' => 99,
+            'user_id' => 99,
+            'category_id' => 1,
+            'image_id' => 99,
+            'title' => 'test',
+            'body'  => 'test',
+        ]);
+
+        Image::create([
+            'id' =>99,
+            'image' => 
+        ]);
+
+
+
         $param = [
             'name' => 'ファンタジー'
         ];
