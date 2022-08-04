@@ -17,7 +17,7 @@ class CreateImagesTable extends Migration
             $table->id();
             // $table->string('name');
             // $table->string('path');
-            $table->string('image');
+            $table->longText('image');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
         });

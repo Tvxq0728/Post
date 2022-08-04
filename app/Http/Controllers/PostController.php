@@ -51,11 +51,7 @@ class PostController extends Controller
 
         // $image = base64_encode(file_get_contents($request->image->getRealPath()));
         $image = new Image;
-        $uploadImg = $request->image;
-        if ($uploadImg->isValid()) {
-            $filePath = $uploadImg->store('public');
-            $image->image = str_replace('public','',$filePath);
-        }
+        $image->image = base64_encode(file_get_contents($request->image));
         $image->save();
         Post::create([
             "title" => $request->title,
