@@ -64,10 +64,11 @@ class PostCommentSeeder extends Seeder
             'title' => 'test',
             'body'  => 'test',
         ]);
-
+        $image = store('storage/app/public/image');
+        $image = base64_encode(file_get_contents($image));
         Image::create([
             'id' =>99,
-            'image' => 
+            'image' => $image,
         ]);
 
 
