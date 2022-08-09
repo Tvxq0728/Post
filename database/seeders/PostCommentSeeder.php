@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
 use App\public\storage\image;
+use Illuminate\Database\Seeders\store;
 
 class PostCommentSeeder extends Seeder
 {
@@ -53,21 +54,20 @@ class PostCommentSeeder extends Seeder
         // ];
         // $category->save();
         User::create([
-            'id'   => 99,
             'name' => 'test',
+            'email' => 'test@test',
+            'password' => 'testtest',
         ]);
         Post::create([
-            'id' => 99,
-            'user_id' => 99,
+            'user_id' => 1,
             'category_id' => 1,
-            'image_id' => 99,
+            'image_id' => 1,
             'title' => 'test',
             'body'  => 'test',
         ]);
         $image = store('storage/app/public/image');
         $image = base64_encode(file_get_contents($image));
         Image::create([
-            'id' =>99,
             'image' => $image,
         ]);
 
