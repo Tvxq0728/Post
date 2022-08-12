@@ -6,10 +6,10 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Comment;
 use App\Models\Category;
-use App\public\storage\image;
-use Illuminate\Database\Seeders\store;
+
 
 class PostCommentSeeder extends Seeder
 {
@@ -53,6 +53,7 @@ class PostCommentSeeder extends Seeder
         //     'キッズ',
         // ];
         // $category->save();
+
         User::create([
             'name' => 'test',
             'email' => 'test@test',
@@ -65,8 +66,8 @@ class PostCommentSeeder extends Seeder
             'title' => 'test',
             'body'  => 'test',
         ]);
-        $image = store('storage/app/public/image');
-        $image = base64_encode(file_get_contents($image));
+        $image = new Image;
+        $image->image = base64_encode(file_get_contents('storage/app/public/image.png'));
         Image::create([
             'image' => $image,
         ]);

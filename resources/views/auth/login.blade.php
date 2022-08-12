@@ -39,21 +39,20 @@
                     <span class="ml-2 text-sm text-gray-600">{{ __('次回から自動でログイン') }}</span>
                 </label>
             </div>
-
             <div class="flex items-center justify-end mt-4">
                 <!-- @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{-- __('Forgot your password?') --}}
                     </a>
                 @endif -->
-                <x-button>
-                    <a href="/posts">guestログイン</a>
+                <x-button class="ml-3">
+                    <a href="/login">ログイン</a>
                 </x-button>
                 <x-button class="ml-3">
                     <a href="/register">会員登録</a>
                 </x-button>
                 <x-button class="ml-3">
-                    {{ __('ログイン') }}
+                    <a href="/posts">guestログイン</a>
                 </x-button>
             </div>
         </form>
