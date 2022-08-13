@@ -68,9 +68,7 @@ class PostCommentSeeder extends Seeder
         ]);
         $image = new Image;
         $image->image = base64_encode(file_get_contents('storage/app/public/image.png'));
-        Image::create([
-            'image' => $image,
-        ]);
+        $image->save();
 
 
 
