@@ -67,7 +67,7 @@ class PostCommentSeeder extends Seeder
             'body'  => 'test',
         ]);
         $image = new Image;
-        $image->image = base64_encode(file_get_contents('storage/app/public/image.png'));
+        $image->image = base64_encode(file_get_contents('public/storage/image/image.png'));
         $image->save();
         // test
 
